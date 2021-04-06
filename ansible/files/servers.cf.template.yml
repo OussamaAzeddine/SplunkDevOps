@@ -39,7 +39,7 @@ Parameters:
   AwsZone2:
     Description: "AWS Availability Zone to deploy to"
     Type: "AWS::EC2::AvailabilityZone::Name"
-  EBSkey:
+  #EBSkey:
     Description: "Key used to encrypt EBS volumes"
     Type: "String"
   Subnet:
@@ -69,7 +69,7 @@ Resources:
           Value: !Ref EnvId
       AvailabilityZone: !Ref AwsZone 
       NetworkInterfaces:
-        - AssociatePublicIpAddress: "true"
+        - AssociatePublicIpAddress: "false"
           DeviceIndex: "0"
           GroupSet: 
             - sg-03c71033aa765ba2b
@@ -93,7 +93,7 @@ Resources:
           Value: !Ref EnvId
       AvailabilityZone: !Ref AwsZone2
       NetworkInterfaces:
-        - AssociatePublicIpAddress: "true"
+        - AssociatePublicIpAddress: "false"
           DeviceIndex: "0"
           GroupSet: 
             - sg-03c71033aa765ba2b
@@ -128,29 +128,3 @@ Resources:
       ResourceRecords:
       - !GetAtt server2.PrivateIp
 # following is not used in this exercice
-  AnsibleSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupName: !Join [ "", [ !Ref EnvId, "-ansible-sg"] ]
-      GroupDescription: "Ansible demonstration SG - 22/SSH"
-      VpcId: !Ref VPC
-      SecurityGroupIngress:
-      - IpProtocol: tcp
-        FromPort: '22'
-        ToPort: '22'
-        Description: Permit SSH
-        CidrIp: 0.0.0.0/0
-      SecurityGroupEgress:
-      - IpProtocol: tcp
-        FromPort: '0'
-        ToPort: '65535'
-        CidrIp: 0.0.0.0/0
-      - IpProtocol: icmp
-        FromPort: '8'
-        ToPort: '-1'
-        CidrIp: 0.0.0.0/0
-      Tags:
-        - Key: "Name"
-          Value: !Join [ "", [ !Ref EnvId, "-ansible-sg"] ]
-        - Key: "env_id"
-          Value: !Ref EnvId

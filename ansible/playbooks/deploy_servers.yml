@@ -36,7 +36,7 @@
           ServerName2: "{{ server_name2 }}"
           AwsZone: "{{aws_zone}}"
           AwsZone2: "{{aws_zone2}}"
-          EBSkey: "{{ebs_key}}"
+          #EBSkey: "{{ebs_key}}"
           Subnet: "{{subnet}}"
           Subnet2: "{{subnet2}}"
           PrivateRoute53HostedZone: "{{private_hosted_zone}}"

@@ -3,21 +3,21 @@
 #aws_image: "{{ aws_image}}"
 
 #   Cloud Formation Stack Name
-stack_name: "myservers"
+stack_name: "stacktest0"
 
 # SSH Keypair for the instance
-aws_key_name: "ansiblekey"
+aws_key_name: "ansible_master_kp"
 
 #Establish server hostname
-server_name: "server01.ansiblelab.com"
-server_name2: "server02.ansiblelab.com"
+server_name: "server01.galaxy.splunk.infra.com"
+server_name2: "server02.galaxy.splunk.infra.com"
 
 #Type of AWS instance
 aws_instancetype: "t2.medium"
 
 #Establish  server subnets
-subnet: subnet-801972cd
-subnet2: subnet-e60e289d
+subnet: subnet-801972cd #eu-west-3c
+subnet2: subnet-e60e289d #eu-west-3b
 
 # Establish EBS Encryption key
 # NOT USED
@@ -28,11 +28,11 @@ ebs_key: "ff01e1f8-edfa-44d6-b511-3fc07445765c"
 private_hosted_zone: Z060707325L428YTZUUHI
 
 # Establish VPC
-vpc_id: vpc-088f9f20331a59216
+vpc_id: vpc-c454b5ac
 
 #Disks to attach to instance
 disks:
   - name: "root_volume"
     type: "gp2"
-    size: "8"
+    size: "12"
     device_name: "/dev/sda1"

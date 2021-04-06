@@ -1,7 +1,7 @@
 ---
 # Define hosting environment
 hosting_infrastructure: aws
-
+ansible_python_interpreter: ~/ansible_env/bin/python3
 # Define AWS region. Comment out the one you DO NOT wish to use with #
 aws_region: "eu-west-3"
 #aws_region: "us-west-1"
@@ -20,7 +20,7 @@ aws_image: ami-0ba7c4110ca9bfe0b
 aws_key_name: "ansible_master_kp"
 
 # Availability zone of resources
-aws_zone: "eu-west-3a"
+aws_zone: "eu-west-3c"
 #aws_zone: "us-east-1b"
 #aws_zone: "us-east-1c"
 
