@@ -20,11 +20,12 @@ subnet: subnet-801972cd
 subnet2: subnet-e60e289d
 
 # Establish EBS Encryption key
+# NOT USED
 ebs_key: "ff01e1f8-edfa-44d6-b511-3fc07445765c"
 
 
 # Establish private Route53 DNS zone
-private_hosted_zone: Z0426696BJSKNKQ4L8ET
+private_hosted_zone: Z060707325L428YTZUUHI
 
 # Establish VPC
 vpc_id: vpc-088f9f20331a59216

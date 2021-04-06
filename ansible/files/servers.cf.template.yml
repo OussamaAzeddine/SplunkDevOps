@@ -80,8 +80,6 @@ Resources:
             VolumeType: !Ref RootVolumeType 
             DeleteOnTermination: "true"
             VolumeSize: !Ref RootVolumeSize
-            Encrypted: "true"
-            KmsKeyId: !Ref EBSkey
   server2:
     Type: "AWS::EC2::Instance"
     Properties:
