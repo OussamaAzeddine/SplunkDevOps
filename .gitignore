@@ -168,7 +168,7 @@ DocProject/Help/html
 
 # Click-Once directory
 publish/
-
+.aws/credentials
 # Publish Web Output
 *.[Pp]ublish.xml
 *.azurePubxml
