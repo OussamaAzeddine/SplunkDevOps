@@ -56,7 +56,8 @@ Parameters:
     Type: "AWS::EC2::VPC::Id"
   
 Resources:
-  server1:
+#Creation of Search Heads
+  sh01:
     Type: "AWS::EC2::Instance"
     Properties:
       ImageId: !Ref Image
@@ -80,7 +81,7 @@ Resources:
             VolumeType: !Ref RootVolumeType 
             DeleteOnTermination: "true"
             VolumeSize: !Ref RootVolumeSize
-  server2:
+  sh02:
     Type: "AWS::EC2::Instance"
     Properties:
       ImageId: !Ref Image
@@ -89,6 +90,105 @@ Resources:
       Tags:
         - Key: 'Name'
           Value: !Ref ServerName2
+        - Key: 'env_id'
+          Value: !Ref EnvId
+      AvailabilityZone: !Ref AwsZone 
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: "false"
+          DeviceIndex: "0"
+          GroupSet: 
+            - sg-03c71033aa765ba2b
+          SubnetId: !Ref Subnet
+      BlockDeviceMappings:
+        - DeviceName: !Ref RootVolumeName
+          Ebs:
+            VolumeType: !Ref RootVolumeType 
+            DeleteOnTermination: "true"
+            VolumeSize: !Ref RootVolumeSize
+  sh03:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: !Ref Image
+      KeyName: !Ref KeyPairName
+      InstanceType: !Ref InstanceType
+      Tags:
+        - Key: 'Name'
+          Value: !Ref ServerName3
+        - Key: 'env_id'
+          Value: !Ref EnvId
+      AvailabilityZone: !Ref AwsZone2 
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: "false"
+          DeviceIndex: "0"
+          GroupSet: 
+            - sg-03c71033aa765ba2b
+          SubnetId: !Ref Subnet2
+      BlockDeviceMappings:
+        - DeviceName: !Ref RootVolumeName
+          Ebs:
+            VolumeType: !Ref RootVolumeType 
+            DeleteOnTermination: "true"
+            VolumeSize: !Ref RootVolumeSize
+#dmcserver
+  dmc:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: !Ref Image
+      KeyName: !Ref KeyPairName
+      InstanceType: !Ref InstanceType
+      Tags:
+        - Key: 'Name'
+          Value: !Ref ServerName4
+        - Key: 'env_id'
+          Value: !Ref EnvId
+      AvailabilityZone: !Ref AwsZone2
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: "false"
+          DeviceIndex: "0"
+          GroupSet: 
+            - sg-03c71033aa765ba2b
+          SubnetId: !Ref Subnet2
+      BlockDeviceMappings:
+        - DeviceName: !Ref RootVolumeName
+          Ebs:
+            VolumeType: !Ref RootVolumeType 
+            DeleteOnTermination: "true"
+            VolumeSize: !Ref RootVolumeSize
+#Creation of Indexers
+  idx01:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: !Ref Image
+      KeyName: !Ref KeyPairName
+      InstanceType: !Ref InstanceType
+      Tags:
+        - Key: 'Name'
+          Value: !Ref ServerName5
+        - Key: 'env_id'
+          Value: !Ref EnvId
+      AvailabilityZone: !Ref AwsZone2
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: "false"
+          DeviceIndex: "0"
+          GroupSet: 
+            - sg-03c71033aa765ba2b
+          SubnetId: !Ref Subnet2
+      BlockDeviceMappings:
+        - DeviceName: !Ref RootVolumeName
+          Ebs:
+            VolumeType: !Ref RootVolumeType 
+            DeleteOnTermination: "true"
+            VolumeSize: !Ref RootVolumeSize
+#Heavy Forwarders
+  hfwd01:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: !Ref Image
+      KeyName: !Ref KeyPairName
+      InstanceType: !Ref InstanceType
+      Tags:
+        - Key: 'Name'
+          Value: !Ref ServerName6
         - Key: 'env_id'
           Value: !Ref EnvId
       AvailabilityZone: !Ref AwsZone2
@@ -105,26 +205,68 @@ Resources:
             DeleteOnTermination: "true"
             VolumeSize: !Ref RootVolumeSize
 
-  
-  server1PrivateDNSRecord:
+  sh01PrivateDNSRecord:
     Type: AWS::Route53::RecordSet
     Properties:
       HostedZoneId: !Ref PrivateRoute53HostedZone
-      Comment: Private DNS entry for server1
+      Comment: Private DNS entry for sh01
       Name: !Ref ServerName
       Type: A
       TTL: '900'
       ResourceRecords:
-      - !GetAtt server1.PrivateIp
-  
-  server2PrivateDNSRecord:
+      - !GetAtt sh01.PrivateIp
+
+  sh02PrivateDNSRecord:
     Type: AWS::Route53::RecordSet
     Properties:
       HostedZoneId: !Ref PrivateRoute53HostedZone
-      Comment: Private DNS entry for server2
+      Comment: Private DNS entry for sh02
       Name: !Ref ServerName2
       Type: A
       TTL: '900'
       ResourceRecords:
-      - !GetAtt server2.PrivateIp
-# following is not used in this exercice
+      - !GetAtt sh02.PrivateIp
+
+  sh03PrivateDNSRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref PrivateRoute53HostedZone
+      Comment: Private DNS entry for sh03
+      Name: !Ref ServerName3
+      Type: A
+      TTL: '900'
+      ResourceRecords:
+      - !GetAtt sh03.PrivateIp
+  
+  dmcPrivateDNSRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref PrivateRoute53HostedZone
+      Comment: Private DNS entry for dmc
+      Name: !Ref ServerName4
+      Type: A
+      TTL: '900'
+      ResourceRecords:
+      - !GetAtt dmc.PrivateIp
+
+  idx01PrivateDNSRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref PrivateRoute53HostedZone
+      Comment: Private DNS entry for idx01
+      Name: !Ref ServerName5
+      Type: A
+      TTL: '900'
+      ResourceRecords:
+      - !GetAtt idx01.PrivateIp
+
+  hfwd01PrivateDNSRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref PrivateRoute53HostedZone
+      Comment: Private DNS entry for hfwd01
+      Name: !Ref ServerName6
+      Type: A
+      TTL: '900'
+      ResourceRecords:
+      - !GetAtt hfwd01.PrivateIp

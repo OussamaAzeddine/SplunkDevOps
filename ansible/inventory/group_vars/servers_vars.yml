@@ -3,14 +3,18 @@
 #aws_image: "{{ aws_image}}"
 
 #   Cloud Formation Stack Name
-stack_name: "stacktest0"
+stack_name: "stacksplunkV0"
 
 # SSH Keypair for the instance
 aws_key_name: "ansible_master_kp"
 
 #Establish server hostname
-server_name: "server01.galaxy.splunk.infra.com"
-server_name2: "server02.galaxy.splunk.infra.com"
+server_name: "sh01.galaxy.splunk.infra.com"
+server_name2: "sh02.galaxy.splunk.infra.com"
+server_name3: "sh03.galaxy.splunk.infra.com"
+server_name4: "dmc.galaxy.splunk.infra.com"
+server_name5: "idx01.galaxy.splunk.infra.com"
+server_name6: "hfwd01.galaxy.splunk.infra.com"
 
 #Type of AWS instance
 aws_instancetype: "t2.medium"
