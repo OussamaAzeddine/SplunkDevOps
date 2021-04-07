@@ -33,6 +33,18 @@ Parameters:
   ServerName2:
     Description: "Full name of the server"
     Type: "String"
+  ServerName3:
+    Description: "Full name of the server"
+    Type: "String"
+  ServerName4:
+    Description: "Full name of the server"
+    Type: "String"
+  ServerName5:
+    Description: "Full name of the server"
+    Type: "String"
+  ServerName6:
+    Description: "Full name of the server"
+    Type: "String"
   AwsZone:
     Description: "AWS Availability Zone to deploy to"
     Type: "AWS::EC2::AvailabilityZone::Name"
@@ -40,8 +52,8 @@ Parameters:
     Description: "AWS Availability Zone to deploy to"
     Type: "AWS::EC2::AvailabilityZone::Name"
   #EBSkey:
-    Description: "Key used to encrypt EBS volumes"
-    Type: "String"
+    #Description: "Key used to encrypt EBS volumes"
+    #Type: "String"
   Subnet:
     Description: "Subnet instance will reside in"
     Type: "AWS::EC2::Subnet::Id"
